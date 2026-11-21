@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>یکسان‌سازی و اصلاح نگارشی پایه متن فارسی | نیم‌فاصله و فاصله‌گذاری — KouroshLabs</title>
+<meta name="description" content="یکسان‌سازی و اصلاح نگارشی پایه متن فارسی: نیم‌فاصله، حروف عربی به فارسی، تبدیل ارقام و فاصله‌گذاری. این ابزار غلط‌یاب املایی یا دستوری کامل نیست.">
+<meta property="og:title" content="یکسان‌سازی و اصلاح نگارشی پایه متن فارسی — ابزار رایگان KouroshLabs">
+<meta property="og:description" content="نیم‌فاصله، حروف عربی به فارسی، تبدیل ارقام و فاصله‌گذاری درست. پیش‌نمایش اصلاح با تأیید شما؛ رایگان و بدون ثبت‌نام.">
+<meta property="og:url" content="https://kouroshfaraji1390-creator.github.io/kouroshlabs-freelance/persian-text-fixer.html">
+<meta property="og:type" content="website">
+<style>
+  :root { --blue: #2B6CE8; --ink: #1a2233; --muted: #5b6b82; --line: #e3e9f2; --bg: #f7f9fd; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Tahoma, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.9; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 32px 18px 48px; }
+  a { color: var(--blue); text-decoration: none; }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(20,40,80,.05); }
+  label { display: block; font-weight: bold; margin-bottom: 8px; }
+  textarea { width: 100%; font-size: 16px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 10px; font-family: inherit; min-height: 130px; resize: vertical; line-height: 2; }
+  textarea:focus { outline: none; border-color: var(--blue); }
+  .out { margin-top: 16px; min-height: 110px; background: #eef4ff; border: 1px dashed var(--blue); border-radius: 10px; padding: 14px 16px; font-size: 16px; white-space: pre-wrap; word-wrap: break-word; }
+  .row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  button { font-family: inherit; cursor: pointer; border: none; border-radius: 10px; padding: 10px 18px; font-size: 15px; }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:disabled { opacity: .45; cursor: default; }
+  .chip { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+  .chip:hover { border-color: var(--blue); }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); }
+  .opts { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+  .opts select { font-size: 14px; padding: 7px 10px; border: 2px solid var(--line); border-radius: 10px; font-family: inherit; }
+  .examples { margin-top: 16px; font-size: 14px; color: var(--muted); }
+  .examples .chip { font-size: 13px; padding: 6px 12px; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html">← بازگشت به سایت KouroshLabs</a>
+  <h1>یکسان‌سازی و اصلاح نگارشی پایهٔ متن فارسی</h1>
+  <p class="sub">نیم‌فاصله، حروف عربی به فارسی، تبدیل ارقام و فاصله‌گذاری — این ابزار غلط‌یاب املایی یا دستوری کامل نیست. متن اصلی شما دست‌نخورده می‌ماند؛ اصلاح را در پیش‌نمایش ببینید و فقط با تأیید خودتان اعمال کنید. رایگان، بدون ثبت‌نام.</p>
+
+  <div class="card">
+    <label for="inText">متن اصلی (دست‌نخورده می‌ماند)</label>
+    <textarea id="inText" placeholder="مثلاً: من می روم به مدرسه ، کتاب های من اينجا است"></textarea>
+    <div class="opts">
+      <label class="toggle"><input type="checkbox" id="optZwnj" checked> نیم‌فاصله (می‌روم، کتاب‌ها)</label>
+      <label class="toggle"><input type="checkbox" id="optArabic" checked> حروف عربی به فارسی (ي ك ة)</label>
+      <label class="toggle"><input type="checkbox" id="optPunct" checked> فاصله نقطه‌گذاری</label>
+      <label class="toggle"><input type="checkbox" id="optSpaces" checked> حذف فاصله‌های اضافه</label>
+      <label class="toggle">ارقام:
+        <select id="optDigits">
+          <option value="keep" selected>بدون تغییر</option>
+          <option value="fa">به فارسی (۱۲۳)</option>
+          <option value="en">به انگلیسی (123)</option>
+        </select>
+      </label>
+    </div>
+    <label style="margin-top:16px">پیش‌نمایش اصلاح‌شده</label>
+    <div class="out" id="outText">متن اصلاح‌شده اینجا نمایش داده می‌شود.</div>
+    <div class="row">
+      <button class="btn-blue" id="applyBtn" disabled>اعمال اصلاحات</button>
+      <button class="chip" id="undoBtn" disabled>بازگردانی</button>
+      <button class="chip" id="copyBtn" disabled>کپی متن اصلاح‌شده</button>
+      <button class="chip" id="copyOrigBtn" disabled>کپی متن اصلی</button>
+      <button class="chip" id="clearBtn">پاک کردن</button>
+    </div>
+    <div class="examples">مثال‌ها:
+      <button class="chip" data-t="من می روم به مدرسه ، کتاب های من اينجا است">نیم‌فاصله و حروف عربی</button>
+      <button class="chip" data-t="سلام ،  چطورى ؟  قیمت 12345 تومان است">نقطه‌گذاری و ارقام</button>
+      <button class="chip" data-t="او گفته بود که می آید ، من رفته ام">فعل‌ها</button>
+    </div>
+    <p class="hint">نکته: «است» جدا می‌ماند (رفته است) و نیم‌فاصله فقط جایی گذاشته می‌شود که در فارسی درست است. لینک‌ها، ایمیل‌ها و کد داخل متن دست نمی‌خورند.</p>
+  </div>
+
+  <p class="hint" style="text-align:center">پردازش اطلاعات این ابزار در مرورگر شما انجام می‌شود و محتوای واردشده برای پردازش به سرور ارسال نمی‌شود.</p>
+  <footer>ابزار رایگان KouroshLabs — ساخته‌شده توسط کوروش فرجی<br>برای ابزار اختصاصی کسب‌وکارتان یا یک وب‌سایت تک‌صفحه‌ای، به <a href="index.html#services">خدمات ما</a> سر بزنید.</footer>
+</div>
+
+<script>
+var ZWNJ = '‌';
+// Spans that must never be touched: URLs, emails, backtick code.
+// They are masked with private-use placeholders before fixing and restored after,
+// so digits, dots and colons inside them are never rewritten.
+function protectSpans(s) {
+  var spans = [];
+  s = s.replace(/(https?:\/\/[^\s]+|www\.[^\s]+|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|`[^`]*`)/g, function (m) {
+    spans.push(m);
+    return '' + String.fromCharCode(0xE000 + spans.length - 1) + '';
+  });
+  return { text: s, spans: spans };
+}
+function restoreSpans(s, spans) {
+  return s.replace(/([\uE000-\uF8FF])/g, function (m, c) {
+    return spans[c.charCodeAt(0) - 0xE000];
+  });
+}
+function fixPersianText(text, opts) {
+  opts = opts || {};
+  var s = String(text == null ? '' : text);
+  var prot = protectSpans(s);
+  s = prot.text;
+  if (opts.arabic !== false) {
+    s = s.replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/ة/g, 'ه').replace(/ى/g, 'ی');
+  }
+  if (opts.digits === 'fa') {
+    s = s.replace(/[0-9]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; })
+         .replace(/[٠-٩]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'['٠١٢٣٤٥٦٧٨٩'.indexOf(d)]; });
+  } else if (opts.digits === 'en') {
+    s = s.replace(/[۰-۹]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); })
+         .replace(/[٠-٩]/g, function (d) { return '٠١٢٣٤٥٦٧٨٩'.indexOf(d); });
+  }
+  if (opts.zwnj !== false) {
+    // NOTE: JS \b is ASCII-only, so Persian word boundaries use explicit classes.
+    s = s.replace(/(^|[\s(«"'])(ن?می)\s+/g, '$1$2' + ZWNJ);
+    s = s.replace(/([آ-ی])\s+(هایی|های|ها)(?![آ-ی])/g, '$1' + ZWNJ + '$2');
+    s = s.replace(/([آ-ی])\s+(ترین|تر)(?![آ-ی])/g, '$1' + ZWNJ + '$2');
+    s = s.replace(/([آ-ی])\s+(ایم|اید|اند|ام|ای)(?![آ-ی])/g, '$1' + ZWNJ + '$2');
+  }
+  if (opts.punct !== false) {
+    s = s.replace(/\s+([،؛:.!؟?)\]}])/g, '$1');
+    s = s.replace(/([آ-ی])\.\s*([آ-ی])/g, '$1. $2');
+    s = s.replace(/([،؛!؟?])\s*([آ-یA-Za-z])/g, '$1 $2');
+    // Colon spacing only in Persian context (leaves http://, 12:30, a:b untouched).
+    s = s.replace(/([آ-ی]):([آ-یA-Za-z0-9])/g, '$1: $2');
+    // Space before '(' only after a Persian letter (leaves f(x) / console.log(x) untouched).
+    s = s.replace(/([آ-ی])\(/g, '$1 (');
+    s = s.replace(/\(\s+/g, '(');
+  }
+  if (opts.spaces !== false) {
+    s = s.split('\n').map(function (l) { return l.replace(/[^\S\n]+/g, ' ').trim(); }).join('\n');
+    s = s.replace(/\n{3,}/g, '\n\n').trim();
+  }
+  return restoreSpans(s, prot.spans);
+}
+
+if (typeof document !== 'undefined') {
+  var input = document.getElementById('inText');
+  var out = document.getElementById('outText');
+  var copyBtn = document.getElementById('copyBtn');
+  var copyOrigBtn = document.getElementById('copyOrigBtn');
+  var applyBtn = document.getElementById('applyBtn');
+  var undoBtn = document.getElementById('undoBtn');
+  var lastOriginal = null; // text before the last Apply, for Undo
+  function opts() {
+    return {
+      zwnj: document.getElementById('optZwnj').checked,
+      arabic: document.getElementById('optArabic').checked,
+      punct: document.getElementById('optPunct').checked,
+      spaces: document.getElementById('optSpaces').checked,
+      digits: document.getElementById('optDigits').value
+    };
+  }
+  function render() {
+    var v = input.value;
+    if (!v.trim()) {
+      out.textContent = 'متن اصلاح‌شده اینجا نمایش داده می‌شود.';
+      copyBtn.disabled = true; copyOrigBtn.disabled = true; applyBtn.disabled = true;
+      return;
+    }
+    out.textContent = fixPersianText(v, opts());
+    copyBtn.disabled = false; copyOrigBtn.disabled = false; applyBtn.disabled = false;
+  }
+  input.addEventListener('input', function () {
+    // The user edited the text after an Apply: the preserved original no
+    // longer applies, so Copy Original falls back to the current input.
+    lastOriginal = null; undoBtn.disabled = true; render();
+  });
+  ['optZwnj', 'optArabic', 'optPunct', 'optSpaces', 'optDigits'].forEach(function (id) {
+    document.getElementById(id).addEventListener('change', render);
+  });
+  document.querySelectorAll('.chip[data-t]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      // A sample replaces the whole draft: the preserved original from
+      // a previous Apply no longer applies, so clear it (and disable
+      // Undo) — otherwise Copy Original would copy a stale draft
+      // (Nola regression).
+      input.value = b.dataset.t; lastOriginal = null; undoBtn.disabled = true; render(); input.focus();
+    });
+  });
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    input.value = ''; lastOriginal = null; undoBtn.disabled = true; render(); input.focus();
+  });
+  // Preview-and-accept: the original is never overwritten silently.
+  // Apply replaces the input with the previewed text (Undo restores it).
+  applyBtn.addEventListener('click', function () {
+    lastOriginal = input.value;
+    input.value = out.textContent;
+    undoBtn.disabled = false;
+    render(); input.focus();
+  });
+  undoBtn.addEventListener('click', function () {
+    if (lastOriginal == null) return;
+    input.value = lastOriginal;
+    lastOriginal = null; undoBtn.disabled = true;
+    render(); input.focus();
+  });
+  copyBtn.addEventListener('click', async function () {
+    try { await navigator.clipboard.writeText(out.textContent); copyBtn.textContent = 'کپی شد ✓'; }
+    catch (e) { copyBtn.textContent = 'کپی نشد — متن را انتخاب کنید'; }
+    setTimeout(function () { copyBtn.textContent = 'کپی متن اصلاح‌شده'; }, 2000);
+  });
+  copyOrigBtn.addEventListener('click', async function () {
+    // Copy the text as it was before the last Apply when one exists;
+    // otherwise copy the current input.
+    var t = (lastOriginal != null ? lastOriginal : input.value);
+    try { await navigator.clipboard.writeText(t); copyOrigBtn.textContent = 'کپی شد ✓'; }
+    catch (e) { copyOrigBtn.textContent = 'کپی نشد — متن را انتخاب کنید'; }
+    setTimeout(function () { copyOrigBtn.textContent = 'کپی متن اصلی'; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

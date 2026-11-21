@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مبدل تاریخ شمسی و میلادی | محاسبه سن و فاصله دو تاریخ — KouroshLabs</title>
+<meta name="description" content="تبدیل رایگان تاریخ شمسی به میلادی و برعکس، محاسبه سن و فاصله دو تاریخ. رایگان و بدون ثبت‌نام.">
+<meta property="og:title" content="مبدل تاریخ شمسی و میلادی — ابزار رایگان KouroshLabs">
+<meta property="og:description" content="تبدیل تاریخ شمسی به میلادی و برعکس، محاسبه سن و فاصله دو تاریخ. رایگان و بدون ثبت‌نام.">
+<meta property="og:url" content="https://kouroshfaraji1390-creator.github.io/kouroshlabs-freelance/date-converter.html">
+<meta property="og:type" content="website">
+<style>
+  :root { --blue: #2B6CE8; --ink: #1a2233; --muted: #5b6b82; --line: #e3e9f2; --bg: #f7f9fd; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Tahoma, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.9; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 32px 18px 48px; }
+  a { color: var(--blue); text-decoration: none; }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  h2 { font-size: 19px; margin: 0 0 12px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(20,40,80,.05); margin-bottom: 18px; }
+  label { display: block; font-weight: bold; margin-bottom: 8px; }
+  .fields { display: flex; gap: 10px; flex-wrap: wrap; }
+  .fields > div { flex: 1; min-width: 90px; }
+  input[type="text"], input[type="number"], input[type="date"], select { width: 100%; font-size: 17px; padding: 10px 12px; border: 2px solid var(--line); border-radius: 10px; font-family: inherit; }
+  input:focus, select:focus { outline: none; border-color: var(--blue); }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .out { margin-top: 16px; min-height: 56px; background: #eef4ff; border: 1px dashed var(--blue); border-radius: 10px; padding: 12px 16px; font-size: 19px; }
+  .out small { display: block; font-size: 14px; color: var(--muted); }
+  .row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  button { font-family: inherit; cursor: pointer; border: none; border-radius: 10px; padding: 10px 18px; font-size: 15px; }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .chip { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+  .chip:hover { border-color: var(--blue); }
+  .examples { margin-top: 14px; font-size: 14px; color: var(--muted); }
+  .examples .chip { font-size: 13px; padding: 6px 12px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html">← بازگشت به سایت KouroshLabs</a>
+  <h1>مبدل تاریخ شمسی و میلادی</h1>
+  <p class="sub">تبدیل تاریخ، محاسبه سن و فاصله دو تاریخ — رایگان، بدون ثبت‌نام.</p>
+
+  <div class="card">
+    <h2>تبدیل تاریخ</h2>
+    <div class="row" style="margin-top:0">
+      <button class="btn-blue" id="todayBtn">امروز</button>
+      <span class="hint" id="todayHint"></span>
+    </div>
+    <div style="margin-top:16px">
+      <label>تاریخ شمسی</label>
+      <div class="fields">
+        <div><input type="number" id="jy" placeholder="سال" min="1200" max="1600" inputmode="numeric"></div>
+        <div><select id="jm"></select></div>
+        <div><input type="number" id="jd" placeholder="روز" min="1" max="31" inputmode="numeric"></div>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label>تاریخ میلادی</label>
+      <div class="fields">
+        <div><input type="number" id="gy" placeholder="سال" min="1900" max="2200" inputmode="numeric"></div>
+        <div><select id="gm"></select></div>
+        <div><input type="number" id="gd" placeholder="روز" min="1" max="31" inputmode="numeric"></div>
+      </div>
+    </div>
+    <div class="out" id="convOut">تاریخ را وارد کنید.</div>
+    <div class="examples">مثال‌ها:
+      <button class="chip" data-j="1405-8-30">۳۰ آبان ۱۴۰۵</button>
+      <button class="chip" data-j="1405-1-1">۱ فروردین ۱۴۰۵</button>
+      <button class="chip" data-j="1403-12-30">۳۰ اسفند ۱۴۰۳</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>محاسبه سن</h2>
+    <label>تاریخ تولد (شمسی)</label>
+    <div class="fields">
+      <div><input type="number" id="by" placeholder="سال" inputmode="numeric"></div>
+      <div><select id="bm"></select></div>
+      <div><input type="number" id="bd" placeholder="روز" min="1" max="31" inputmode="numeric"></div>
+    </div>
+    <div class="out" id="ageOut">تاریخ تولد را وارد کنید.</div>
+    <p class="hint">سن بر اساس سال‌های کامل‌شده حساب می‌شود (نه تقسیم تقریبی بر ۳۶۵). اگر کسی ۳۰ اسفند (در سال کبیسه) به دنیا آمده باشد، در سال‌های غیرکبیسه سالگرد تولدش ۲۹ اسفند حساب می‌شود.</p>
+  </div>
+
+  <div class="card">
+    <h2>فاصله دو تاریخ</h2>
+    <label>تاریخ اول (شمسی)</label>
+    <div class="fields">
+      <div><input type="number" id="d1y" placeholder="سال" inputmode="numeric"></div>
+      <div><select id="d1m"></select></div>
+      <div><input type="number" id="d1d" placeholder="روز" min="1" max="31" inputmode="numeric"></div>
+    </div>
+    <div style="margin-top:12px">
+      <label>تاریخ دوم (شمسی)</label>
+      <div class="fields">
+        <div><input type="number" id="d2y" placeholder="سال" inputmode="numeric"></div>
+        <div><select id="d2m"></select></div>
+        <div><input type="number" id="d2d" placeholder="روز" min="1" max="31" inputmode="numeric"></div>
+      </div>
+    </div>
+    <div class="out" id="diffOut">هر دو تاریخ را وارد کنید.</div>
+    <p class="hint">فاصله بر حسب روزهای کاملِ گذشته حساب می‌شود؛ اگر هر دو تاریخ یکی باشند، فاصله ۰ روز است.</p>
+  </div>
+
+  <p class="hint" style="text-align:center">پردازش اطلاعات این ابزار در مرورگر شما انجام می‌شود و محتوای واردشده برای پردازش به سرور ارسال نمی‌شود.</p>
+  <footer>ابزار رایگان KouroshLabs — ساخته‌شده توسط کوروش فرجی<br>برای ابزار اختصاصی کسب‌وکارتان یا یک وب‌سایت تک‌صفحه‌ای، به <a href="index.html#services">خدمات ما</a> سر بزنید.</footer>
+</div>
+
+<script>
+// ---- Jalaali conversion (standard jalaali-js algorithm; verified vs jdatetime) ----
+function _div(a, b) { return ~~(a / b); }
+function _mod(a, b) { return a - ~~(a / b) * b; }
+var _breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
+function jalCal(jy) {
+  var bl = _breaks.length, gy = jy + 621, leapJ = -14, jp = _breaks[0], jm, jump, leap, leapG, march, n, i;
+  if (jy < jp || jy >= _breaks[bl - 1]) throw new Error('Invalid Jalaali year ' + jy);
+  for (i = 1; i < bl; i += 1) {
+    jm = _breaks[i]; jump = jm - jp;
+    if (jy < jm) break;
+    leapJ += _div(jump, 33) * 8 + _div(_mod(jump, 33), 4);
+    jp = jm;
+  }
+  n = jy - jp;
+  leapJ += _div(n, 33) * 8 + _div(_mod(n, 33) + 3, 4);
+  if (_mod(jump, 33) === 4 && jump - n === 4) leapJ += 1;
+  leapG = _div(gy, 4) - _div((_div(gy, 100) + 1) * 3, 4) - 150;
+  march = 20 + leapJ - leapG;
+  if (jump - n < 6) n = n - jump + _div(jump + 4, 33) * 33;
+  leap = _mod(_mod(n + 1, 33) - 1, 4);
+  if (leap === -1) leap = 4;
+  return { leap: leap, gy: gy, march: march };
+}
+function g2d(gy, gm, gd) {
+  var d = _div((gy + _div(gm - 8, 6) + 100100) * 1461, 4) + _div(153 * _mod(gm + 9, 12) + 2, 5) + gd - 34840408;
+  d = d - _div(_div(gy + 100100 + _div(gm - 8, 6), 100) * 3, 4) + 752;
+  return d;
+}
+function d2g(jdn) {
+  var j = 4 * jdn + 139361631;
+  j = j + _div(_div(4 * jdn + 183187720, 146097) * 3, 4) * 4 - 3908;
+  var i = _div(_mod(j, 1461), 4) * 5 + 308;
+  var gd = _div(_mod(i, 153), 5) + 1;
+  var gm = _mod(_div(i, 153), 12) + 1;
+  var gy = _div(j, 1461) - 100100 + _div(8 - gm, 6);
+  return { gy: gy, gm: gm, gd: gd };
+}
+function j2d(jy, jm, jd) {
+  var r = jalCal(jy);
+  return g2d(r.gy, 3, r.march) + (jm - 1) * 31 - _div(jm, 7) * (jm - 7) + jd - 1;
+}
+function d2j(jdn) {
+  var gy = d2g(jdn).gy, jy = gy - 621, r = jalCal(jy), jdn1f = g2d(gy, 3, r.march), jd, jm, k;
+  k = jdn - jdn1f;
+  if (k >= 0) {
+    if (k <= 185) { jm = 1 + _div(k, 31); jd = _mod(k, 31) + 1; return { jy: jy, jm: jm, jd: jd }; }
+    k -= 186;
+  } else {
+    jy -= 1; k += 179;
+    if (r.leap === 1) k += 1;
+  }
+  jm = 7 + _div(k, 30); jd = _mod(k, 30) + 1;
+  return { jy: jy, jm: jm, jd: jd };
+}
+function toJalaali(gy, gm, gd) { return d2j(g2d(gy, gm, gd)); }
+function toGregorian(jy, jm, jd) { return d2g(j2d(jy, jm, jd)); }
+function isLeapJalaaliYear(jy) { return jalCal(jy).leap === 0; }
+function jalaaliMonthLength(jy, jm) {
+  if (jm <= 6) return 31;
+  if (jm <= 11) return 30;
+  return isLeapJalaaliYear(jy) ? 30 : 29;
+}
+function gregorianMonthLength(gy, gm) {
+  return new Date(gy, gm, 0).getDate();
+}
+
+// ---- pure helpers (testable) ----
+var J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+var G_MONTHS = ['ژانویه','فوریه','مارس','آوریل','مه','ژوئن','ژوئیه','اوت','سپتامبر','اکتبر','نوامبر','دسامبر'];
+var WEEKDAYS = ['یکشنبه','دوشنبه','سه‌شنبه','چهارشنبه','پنجشنبه','جمعه','شنبه'];
+function faNum(n) { return String(n).replace(/\d/g, function(d){ return '۰۱۲۳۴۵۶۷۸۹'[+d]; }); }
+function weekdayFa(gy, gm, gd) { return WEEKDAYS[new Date(gy, gm - 1, gd).getDay()]; }
+function validJalaali(jy, jm, jd) {
+  // Day/month/year must all be integers: a fractional day (e.g. 2.5) is
+  // not a date and must be rejected, never converted (Nola regression).
+  return Number.isInteger(jy) && jy >= 1200 && jy <= 1600 && Number.isInteger(jm) && jm >= 1 && jm <= 12 && Number.isInteger(jd) && jd >= 1 && jd <= jalaaliMonthLength(jy, jm);
+}
+function validGregorian(gy, gm, gd) {
+  return Number.isInteger(gy) && gy >= 1900 && gy <= 2200 && Number.isInteger(gm) && gm >= 1 && gm <= 12 && Number.isInteger(gd) && gd >= 1 && gd <= gregorianMonthLength(gy, gm);
+}
+function calcAge(by, bm, bd, ty, tm, td) {
+  // Rule: someone born on Esfand 30 (a leap-year day) celebrates their
+  // birthday on Esfand 29 in non-leap years (the last day of Esfand).
+  // Completed years are decided FIRST (has this year's birthday
+  // occurred yet?). Then completed months are counted from the LAST
+  // anniversary, clamping each monthly anniversary to that month's
+  // last valid day; the remaining elapsed days follow. (Nola's
+  // prescription, regression round 2.) This replaces the old borrow
+  // logic, which could go negative: born 1403/6/31, evaluated
+  // 1405/1/1, it borrowed from 29-day Esfand 1404 and returned
+  // 1y 6m -1d. The correct result is 1y 6m 1d (verified vs jdatetime).
+  function effDay(y) { return Math.min(bd, jalaaliMonthLength(y, bm)); }
+  var years = ty - by;
+  if (tm < bm || (tm === bm && td < effDay(ty))) years -= 1;
+  var ay = by + years, ad = effDay(ay);
+  var months = 0, cy = ay, cm = bm, cd = ad;
+  // Nola regression round 3: the monthly count is CAPPED at 11 after
+  // completed years are determined. Without the cap, when the yearly
+  // anniversary day was clamped (e.g. born on Esfand 30, anniversary
+  // on Esfand 29 in a non-leap year), the monthly loop counts a
+  // twelfth month one day before the actual birthday: born 1403/12/30,
+  // evaluated 1408/12/29 returned 4y 12m 0d instead of 4y 11m 30d.
+  // The remainder is left to the elapsed-day calculation below.
+  while (months < 11) {
+    var ny = cm === 12 ? cy + 1 : cy;
+    var nm = cm === 12 ? 1 : cm + 1;
+    var nd = Math.min(ad, jalaaliMonthLength(ny, nm));
+    if (ny < ty || (ny === ty && (nm < tm || (nm === tm && nd <= td)))) {
+      months += 1; cy = ny; cm = nm; cd = nd;
+    } else break;
+  }
+  var days = j2d(ty, tm, td) - j2d(cy, cm, cd);
+  var totalDays = j2d(ty, tm, td) - j2d(by, bm, bd);
+  return { years: years, months: months, days: days, totalDays: totalDays };
+}
+
+if (typeof document !== 'undefined') {
+  var jmSel = document.getElementById('jm'), gmSel = document.getElementById('gm'),
+      bmSel = document.getElementById('bm'), d1mSel = document.getElementById('d1m'), d2mSel = document.getElementById('d2m');
+  J_MONTHS.forEach(function (m, i) {
+    [jmSel, bmSel, d1mSel, d2mSel].forEach(function (s) {
+      var o = document.createElement('option'); o.value = i + 1; o.textContent = m; s.appendChild(o);
+    });
+  });
+  G_MONTHS.forEach(function (m, i) {
+    var o = document.createElement('option'); o.value = i + 1; o.textContent = m; gmSel.appendChild(o);
+  });
+
+  var convOut = document.getElementById('convOut');
+  var jyEl = document.getElementById('jy'), jmEl = document.getElementById('jm'), jdEl = document.getElementById('jd'),
+      gyEl = document.getElementById('gy'), gmEl = document.getElementById('gm'), gdEl = document.getElementById('gd');
+  var updating = false;
+
+  // Which calendar the user is actively editing. The output follows ONLY
+  // that side: if the edited date becomes invalid, an error shows
+  // immediately instead of falling back to the stale opposite-side date.
+  var activeSide = 'jalali';
+  function jalaaliError(jy, jm, jd) {
+    if (!Number.isInteger(jy) || jy < 1200 || jy > 1600) return 'سال شمسی باید عدد صحیح بین ۱۲۰۰ تا ۱۶۰۰ باشد.';
+    if (!Number.isInteger(jm) || jm < 1 || jm > 12) return 'ماه شمسی باید عدد صحیح بین ۱ تا ۱۲ باشد.';
+    if (!Number.isInteger(jd)) return 'روز شمسی باید عدد صحیح باشد (مثلاً ۲٫۵ روز معتبر نیست).';
+    if (!jd || jd < 1) return 'روز شمسی باید حداقل ۱ باشد.';
+    if (jd > jalaaliMonthLength(jy, jm)) return faNum(jd) + ' ' + J_MONTHS[jm - 1] + ' ' + faNum(jy) + ' وجود ندارد — ' + J_MONTHS[jm - 1] + ' سال ' + faNum(jy) + ' فقط ' + faNum(jalaaliMonthLength(jy, jm)) + ' روز دارد.';
+    return 'تاریخ شمسی معتبر نیست.';
+  }
+  function gregorianError(gy, gm, gd) {
+    if (!Number.isInteger(gy) || gy < 1900 || gy > 2200) return 'سال میلادی باید عدد صحیح بین ۱۹۰۰ تا ۲۲۰۰ باشد.';
+    if (!Number.isInteger(gm) || gm < 1 || gm > 12) return 'ماه میلادی باید عدد صحیح بین ۱ تا ۱۲ باشد.';
+    if (!Number.isInteger(gd)) return 'روز میلادی باید عدد صحیح باشد (مثلاً ۲٫۵ روز معتبر نیست).';
+    if (!gd || gd < 1) return 'روز میلادی باید حداقل ۱ باشد.';
+    if (gd > gregorianMonthLength(gy, gm)) return faNum(gd) + ' ' + G_MONTHS[gm - 1] + ' ' + faNum(gy) + ' وجود ندارد — ' + G_MONTHS[gm - 1] + ' سال ' + faNum(gy) + ' فقط ' + faNum(gregorianMonthLength(gy, gm)) + ' روز دارد.';
+    return 'تاریخ میلادی معتبر نیست.';
+  }
+  function renderConv() {
+    var jy = +jyEl.value, jm = +jmEl.value, jd = +jdEl.value;
+    var gy = +gyEl.value, gm = +gmEl.value, gd = +gdEl.value;
+    if (activeSide === 'jalali') {
+      if (validJalaali(jy, jm, jd)) {
+        var g = toGregorian(jy, jm, jd);
+        convOut.innerHTML = faNum(jd) + ' ' + J_MONTHS[jm - 1] + ' ' + faNum(jy) + ' = ' + faNum(g.gd) + ' ' + G_MONTHS[g.gm - 1] + ' ' + faNum(g.gy) +
+          '<small>روز هفته: ' + weekdayFa(g.gy, g.gm, g.gd) + (isLeapJalaaliYear(jy) ? ' — سال شمسی کبیسه است' : '') + '</small>';
+        return;
+      }
+      convOut.textContent = jalaaliError(jy, jm, jd);
+      return;
+    }
+    if (validGregorian(gy, gm, gd)) {
+      var j = toJalaali(gy, gm, gd);
+      convOut.innerHTML = faNum(gd) + ' ' + G_MONTHS[gm - 1] + ' ' + faNum(gy) + ' = ' + faNum(j.jd) + ' ' + J_MONTHS[j.jm - 1] + ' ' + faNum(j.jy) +
+        '<small>روز هفته: ' + weekdayFa(gy, gm, gd) + '</small>';
+      return;
+    }
+    convOut.textContent = gregorianError(gy, gm, gd);
+  }
+  function fillFromJalaali(jy, jm, jd) {
+    updating = true;
+    activeSide = 'jalali';
+    jyEl.value = jy; jmEl.value = jm; jdEl.value = jd;
+    var g = toGregorian(jy, jm, jd);
+    gyEl.value = g.gy; gmEl.value = g.gm; gdEl.value = g.gd;
+    updating = false; renderConv();
+  }
+  function fillFromGregorian(gy, gm, gd) {
+    updating = true;
+    activeSide = 'gregorian';
+    gyEl.value = gy; gmEl.value = gm; gdEl.value = gd;
+    var j = toJalaali(gy, gm, gd);
+    jyEl.value = j.jy; jmEl.value = j.jm; jdEl.value = j.jd;
+    updating = false; renderConv();
+  }
+  ['jy','jm','jd'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { if (!updating) { activeSide = 'jalali'; var jy=+jyEl.value, jm=+jmEl.value, jd=+jdEl.value; if (validJalaali(jy,jm,jd)) { updating=true; var g=toGregorian(jy,jm,jd); gyEl.value=g.gy; gmEl.value=g.gm; gdEl.value=g.gd; updating=false; } renderConv(); } });
+  });
+  ['gy','gm','gd'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', function () { if (!updating) { activeSide = 'gregorian'; var gy=+gyEl.value, gm=+gmEl.value, gd=+gdEl.value; if (validGregorian(gy,gm,gd)) { updating=true; var j=toJalaali(gy,gm,gd); jyEl.value=j.jy; jmEl.value=j.jm; jdEl.value=j.jd; updating=false; } renderConv(); } });
+  });
+  document.querySelectorAll('.chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.dataset.j.split('-').map(Number);
+      fillFromJalaali(p[0], p[1], p[2]);
+    });
+  });
+  document.getElementById('todayBtn').addEventListener('click', function () {
+    var n = new Date();
+    fillFromGregorian(n.getFullYear(), n.getMonth() + 1, n.getDate());
+    var j = toJalaali(n.getFullYear(), n.getMonth() + 1, n.getDate());
+    document.getElementById('todayHint').textContent = 'امروز: ' + faNum(j.jd) + ' ' + J_MONTHS[j.jm - 1] + ' ' + faNum(j.jy);
+  });
+
+  // age
+  var ageOut = document.getElementById('ageOut');
+  function renderAge() {
+    var by = +document.getElementById('by').value, bm = +document.getElementById('bm').value, bd = +document.getElementById('bd').value;
+    if (!validJalaali(by, bm, bd)) { ageOut.textContent = 'تاریخ تولد معتبر نیست.'; return; }
+    var n = new Date(); var t = toJalaali(n.getFullYear(), n.getMonth() + 1, n.getDate());
+    if (j2d(by, bm, bd) > j2d(t.jy, t.jm, t.jd)) { ageOut.textContent = 'تاریخ تولد نمی‌تواند در آینده باشد.'; return; }
+    var a = calcAge(by, bm, bd, t.jy, t.jm, t.jd);
+    ageOut.innerHTML = faNum(a.years) + ' سال و ' + faNum(a.months) + ' ماه و ' + faNum(a.days) + ' روز' +
+      '<small>مجموع: ' + faNum(a.totalDays) + ' روز از تولد شما گذشته است.</small>';
+  }
+  ['by','bm','bd'].forEach(function (id) { document.getElementById(id).addEventListener('input', renderAge); });
+
+  // diff
+  var diffOut = document.getElementById('diffOut');
+  function renderDiff() {
+    var y1 = +document.getElementById('d1y').value, m1 = +document.getElementById('d1m').value, d1 = +document.getElementById('d1d').value;
+    var y2 = +document.getElementById('d2y').value, m2 = +document.getElementById('d2m').value, d2 = +document.getElementById('d2d').value;
+    if (!validJalaali(y1, m1, d1) || !validJalaali(y2, m2, d2)) { diffOut.textContent = 'هر دو تاریخ باید معتبر باشند.'; return; }
+    var diff = j2d(y2, m2, d2) - j2d(y1, m1, d1);
+    diffOut.textContent = 'فاصله: ' + faNum(Math.abs(diff)) + ' روز' + (diff < 0 ? ' (تاریخ دوم قبل از تاریخ اول است)' : '');
+  }
+  ['d1y','d1m','d1d','d2y','d2m','d2d'].forEach(function (id) { document.getElementById(id).addEventListener('input', renderDiff); });
+
+  // init with today
+  var now = new Date();
+  fillFromGregorian(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  var tj = toJalaali(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  document.getElementById('todayHint').textContent = 'امروز: ' + faNum(tj.jd) + ' ' + J_MONTHS[tj.jm - 1] + ' ' + faNum(tj.jy);
+}
+</script>
+</body>
+</html>

@@ -298,6 +298,12 @@
     display:inline-block;background:var(--accent);color:#221a06;border-radius:999px;
     padding:1px 11px;font-size:12.5px;font-weight:800;margin-left:8px;vertical-align:middle;
   }
+  .tool-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+  @media (max-width:700px){ .tool-grid{grid-template-columns:1fr} }
+  .tool-item{flex-direction:column;align-items:flex-start;gap:14px;flex-wrap:nowrap}
+  .tool-item .tool-text{flex:1 1 auto}
+  .tool-text h3{margin:0 0 4px;font-size:clamp(19px,2.6vw,22px);font-weight:900;line-height:1.5}
+  .tool-item .btn{margin-top:auto}
 
   /* ---------- Brief builder ---------- */
   .brief{
@@ -525,6 +531,48 @@
         <p>تبدیل رایگان عدد به حروف فارسی برای فاکتور، چک و قرارداد. عدد را وارد کن و معادل حروفی‌اش را آماده‌ی کپی بگیر — بدون ثبت‌نام و بدون هزینه.</p>
       </div>
       <a class="btn btn-primary" href="tool.html">باز کردن ابزار ←</a>
+    </div>
+    <div class="tool-grid">
+      <article class="tool-card tool-item">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg>
+        </div>
+        <div class="tool-text">
+          <h3>فاکتورساز<span class="free-badge">رایگان</span></h3>
+          <p>ساخت فاکتور ساده‌ی فارسی با اقلام، تخفیف و مالیات — آماده‌ی چاپ و ذخیره. کاملاً رایگان و بدون ثبت‌نام؛ همه‌ی پردازش در مرورگر خودت انجام می‌شود و اطلاعاتی به هیچ سروری ارسال نمی‌شود.</p>
+        </div>
+        <a class="btn btn-primary" href="invoice-maker.html">باز کردن ابزار ←</a>
+      </article>
+      <article class="tool-card tool-item">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8.5 16.5h.01M12 16.5h.01M15.5 16.5h.01"/></svg>
+        </div>
+        <div class="tool-text">
+          <h3>مبدل تاریخ<span class="free-badge">رایگان</span></h3>
+          <p>تبدیل تاریخ شمسی (جلالی) به میلادی و برعکس، همراه با محاسبه‌ی سن و فاصله‌ی دو تاریخ. رایگان و بدون ثبت‌نام؛ پردازش فقط در مرورگر خودت انجام می‌شود.</p>
+        </div>
+        <a class="btn btn-primary" href="date-converter.html">باز کردن ابزار ←</a>
+      </article>
+      <article class="tool-card tool-item">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M21 14v3M14 21h3"/></svg>
+        </div>
+        <div class="tool-text">
+          <h3>ساخت کد QR<span class="free-badge">رایگان</span></h3>
+          <p>از هر متن یا لینکی در چند ثانیه کد QR بساز و تصویرش را دانلود کن. رایگان و بدون ثبت‌نام؛ کد در مرورگر خودت ساخته می‌شود و چیزی به سرور ارسال نمی‌شود.</p>
+        </div>
+        <a class="btn btn-primary" href="qr-generator.html">باز کردن ابزار ←</a>
+      </article>
+      <article class="tool-card tool-item">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </div>
+        <div class="tool-text">
+          <h3>اصلاح متن فارسی<span class="free-badge">رایگان</span></h3>
+          <p>متن فارسی را یکدست کن: اصلاح فاصله و نیم‌فاصله، تبدیل حروف و اعداد عربی به فارسی و مرتب‌سازی نشانه‌گذاری. رایگان و بدون ثبت‌نام؛ متن فقط در مرورگر خودت پردازش می‌شود.</p>
+        </div>
+        <a class="btn btn-primary" href="persian-text-fixer.html">باز کردن ابزار ←</a>
+      </article>
     </div>
   </section>
 
