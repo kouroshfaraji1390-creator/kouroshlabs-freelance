@@ -265,7 +265,7 @@
     background:var(--accent);color:#221a06;border-radius:10px;padding:10px 16px;
     font-weight:800;font-size:16.5px;line-height:1.7;width:100%;text-align:center;
   }
-  .film-layout{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+  .film-layout{display:grid;grid-template-columns:1fr 240px;gap:22px;align-items:start}
   @media (max-width:700px){ .film-layout{grid-template-columns:1fr} }
   .film-text{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
   .film-text p{margin:0}
@@ -626,6 +626,13 @@
           <div class="film-text">
             <p>فیلم تبلیغاتی شیک و سینمایی با گویندگی و موزیک فارسی، برای فروشگاه‌های کوچک — از ۱۰ ثانیه تا ۱ ساعت. قیمت: هر ۱۰ ثانیه ۱۰۰٬۰۰۰ تومان (۲۰ ثانیه = ۲۰۰٬۰۰۰ تومان؛ ۶۰ ثانیه = ۶۰۰٬۰۰۰ تومان). زمان تحویل بعد از ارسال عکس محصول و نهایی‌شدن بریف شروع می‌شه؛ هر ۶۰ ثانیه فیلم، ۱ روز. پرداخت فقط بعد از تایید شما. یک بار بازبینی داخل محدوده سفارش شامل می‌شه.</p>
             <a class="btn btn-primary" href="#contact">برای سفارش، ایمیل بزنید ✉</a>
+          </div>
+          <div class="film-video">
+            <video controls preload="metadata" playsinline>
+              <source src="sample-film.mp4" type="video/mp4">
+            </video>
+            <div class="film-caption">نمونه: تبلیغ آزمایشی برای یک محصول خیالی</div>
+            <div class="film-credit">Music: "Inspired" by Kevin MacLeod (incompetech.com), licensed under CC BY 4.0</div>
           </div>
         </div>
       </article>
