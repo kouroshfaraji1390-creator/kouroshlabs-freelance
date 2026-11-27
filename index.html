@@ -49,14 +49,14 @@
         "@type": "OfferCatalog",
         "name": "خدمات فریلنسری",
         "itemListElement": [
-          { "@type": "Offer", "price": "2500000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "ایجنت هوش مصنوعی" } },
-          { "@type": "Offer", "price": "2000000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "طراحی دستیار ChatGPT" } },
-          { "@type": "Offer", "price": "900000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "وب‌سایت تک‌صفحه‌ای" } },
-          { "@type": "Offer", "price": "750000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "اسکریپت پایتون" } },
-          { "@type": "Offer", "price": "1000000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "پاکسازی اکسل / CSV" } },
-          { "@type": "Offer", "price": "500000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "فیلم تبلیغاتی با هوش مصنوعی" } },
-          { "@type": "Offer", "price": "150000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "ترجمه عمومی انگلیسی ↔ فارسی" } },
-          { "@type": "Offer", "price": "150000", "priceCurrency": "IRR", "itemOffered": { "@type": "Service", "name": "تایپ و قالب‌بندی" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ایجنت هوش مصنوعی" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "طراحی دستیار ChatGPT" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "وب‌سایت تک‌صفحه‌ای" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "اسکریپت پایتون" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "پاکسازی اکسل / CSV" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "فیلم تبلیغاتی با هوش مصنوعی" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "ترجمه عمومی انگلیسی ↔ فارسی" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "تایپ و قالب‌بندی" } }
         ]
       }
     },
@@ -550,6 +550,17 @@
     <div class="svc-grid" id="svcGrid"></div>
     <div class="custom-note">
       <b>کار سفارشی:</b> خدماتی گسترده‌تر از محدوده‌ی قیمت ثابت — مانند ترجمه‌ی تخصصی، یکپارچه‌سازی API، ساخت داشبورد اختصاصی و رونویسی صوتی — جزو این قیمت‌ها نیستند و به‌عنوان کار سفارشی، جداگانه بررسی و قیمت‌گذاری می‌شوند. در فرم سفارش بپرس تا صادقانه جواب بگیری.
+    </div>
+  </section>
+
+  <!-- ماشین‌حساب قیمت خدمات -->
+  <section id="price-calculator-banner">
+    <div class="tool-card">
+      <div class="tool-text">
+        <h2>ماشین‌حساب قیمت خدمات</h2>
+        <p>خدمت و حجم کار را انتخاب کن؛ برآورد قیمت و زمان تحویل را همان لحظه ببین. قیمت و زمان نهایی پس از بررسی بریف، پیش از شروع کار با تو هماهنگ می‌شود.</p>
+      </div>
+      <a class="btn btn-primary" href="price-calculator.html">حساب کردن قیمت ←</a>
     </div>
   </section>
 
@@ -1085,7 +1096,7 @@
     {
       title: "ترجمه عمومی انگلیسی ↔ فارسی",
       desc: "ترجمه‌ی عمومی دقیق و روان توسط مدرس زبان در سطح C1؛ برای متن‌های عمومی، رزومه و مکاتبه. ترجمه‌ی تخصصی جزو این محدوده نیست و سفارشی قیمت‌گذاری می‌شود.",
-      price: "۱۵۰٬۰۰۰ تومان",
+      price: "۱۵۰٬۰۰۰ تومان به ازای هر ۳۰۰ کلمه",
       delivery: "۲ روز",
       revisions: "۱ دور",
       starterNote: "شرایط پیشنهاد شروع برای ۳ مشتری اول روی همین کارت اعمال می‌شود.",
@@ -1095,7 +1106,7 @@
     {
       title: "تایپ و قالب‌بندی",
       desc: "تایپ دقیق از روی دست‌نویس یا عکس و قالب‌بندی تمیز در Word تا فایل آماده‌ی چاپ یا ارسال شود. رونویسی صوتی جزو این محدوده نیست و سفارشی قیمت‌گذاری می‌شود.",
-      price: "۱۵۰٬۰۰۰ تومان",
+      price: "۱۵۰٬۰۰۰ تومان به ازای هر ۳ صفحه",
       delivery: "۲ روز",
       revisions: "۱ دور",
       starterNote: "شرایط پیشنهاد شروع برای ۳ مشتری اول روی همین کارت اعمال می‌شود.",

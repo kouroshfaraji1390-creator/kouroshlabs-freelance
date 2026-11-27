@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ماشین‌حساب قیمت خدمات | KouroshLabs</title>
+<meta name="description" content="قیمت و زمان تحویل خدمات KouroshLabs را برآورد کنید و درخواست خود را با ایمیل ارسال کنید.">
+<meta property="og:title" content="ماشین‌حساب قیمت خدمات — KouroshLabs">
+<meta property="og:description" content="خدمت را انتخاب کنید و برآورد قیمت و زمان تحویل را همان لحظه ببینید. قیمت و زمان نهایی پس از بررسی بریف، پیش از شروع کار هماهنگ می‌شود.">
+<meta property="og:url" content="https://kouroshfaraji1390-creator.github.io/kouroshlabs-freelance/price-calculator.html">
+<meta property="og:type" content="website">
+<style>
+  :root { --blue: #2B6CE8; --ink: #1a2233; --muted: #5b6b82; --line: #e3e9f2; --bg: #f7f9fd; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Tahoma, "Segoe UI", sans-serif; background: var(--bg); color: var(--ink); line-height: 1.9; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 32px 18px 48px; }
+  a { color: var(--blue); text-decoration: none; }
+  h1 { font-size: 26px; margin: 8px 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(20,40,80,.05); }
+  label { display: block; font-weight: bold; margin-bottom: 8px; }
+  select { width: 100%; font-size: 16px; padding: 12px 14px; border: 2px solid var(--line); border-radius: 10px; font-family: inherit; background: #fff; color: var(--ink); }
+  select:focus { outline: none; border-color: var(--blue); }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .qty { margin-top: 18px; display: none; }
+  .qty.show { display: block; }
+  .qty .val { font-size: 20px; font-weight: bold; }
+  input[type="range"] { width: 100%; direction: ltr; accent-color: var(--blue); }
+  .range-labels { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); direction: ltr; }
+  .stepper { display: flex; gap: 12px; align-items: center; }
+  .stepper button { width: 44px; height: 44px; font-size: 22px; padding: 0; border-radius: 10px; border: 2px solid var(--line); background: #fff; color: var(--ink); }
+  .stepper button:hover { border-color: var(--blue); }
+  .stepper button:disabled { opacity: .4; cursor: default; }
+  .out { margin-top: 22px; background: #eef4ff; border: 1px dashed var(--blue); border-radius: 10px; padding: 16px 18px; }
+  .out .row-line { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; }
+  .out .row-line .k { color: var(--muted); }
+  .out .total { font-size: 24px; font-weight: bold; margin-top: 6px; }
+  .out .note { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; align-items: center; }
+  button { font-family: inherit; cursor: pointer; border: none; border-radius: 10px; padding: 10px 18px; font-size: 15px; }
+  .btn-order { background: var(--blue); color: #fff; }
+  .privacy { text-align: center; font-size: 13px; color: var(--muted); margin-top: 22px; }
+  footer { margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html">← بازگشت به سایت KouroshLabs</a>
+  <h1>ماشین‌حساب قیمت خدمات</h1>
+  <p class="sub">خدمت را انتخاب کنید؛ برآورد قیمت و زمان تحویل را همان لحظه ببینید. ارسال درخواست و محاسبه قیمت رایگان است.</p>
+
+  <div class="card">
+    <label for="service">خدمت را انتخاب کنید</label>
+    <select id="service"></select>
+    <div class="hint" id="unitHint"></div>
+
+    <div class="qty" id="qtyFilm">
+      <label for="filmRange">مدت فیلم: <span class="val" id="filmVal">۱۰ ثانیه</span></label>
+      <input type="range" id="filmRange" min="10" max="60" step="10" value="10">
+      <div class="range-labels"><span>۱۰ ثانیه</span><span>۶۰ ثانیه</span></div>
+      <div class="hint">۵۰۰٬۰۰۰ تومان به ازای هر ۱۰ ثانیه</div>
+    </div>
+
+    <div class="qty" id="qtyTrans">
+      <label>تعداد واحد ترجمه (هر واحد ۳۰۰ کلمه)</label>
+      <div class="stepper">
+        <button type="button" id="transMinus" aria-label="کمتر">−</button>
+        <span class="val" id="transVal">۱ واحد (۳۰۰ کلمه)</span>
+        <button type="button" id="transPlus" aria-label="بیشتر">+</button>
+      </div>
+    </div>
+
+    <div class="qty" id="qtyType">
+      <label>تعداد واحد تایپ (هر واحد ۳ صفحه)</label>
+      <div class="stepper">
+        <button type="button" id="typeMinus" aria-label="کمتر">−</button>
+        <span class="val" id="typeVal">۱ واحد (۳ صفحه)</span>
+        <button type="button" id="typePlus" aria-label="بیشتر">+</button>
+      </div>
+    </div>
+
+    <div class="out" id="out">
+      <div class="row-line"><span class="k">خدمت</span><span id="rService"></span></div>
+      <div class="row-line" id="rQtyRow"><span class="k">مقدار</span><span id="rQty"></span></div>
+      <div class="row-line"><span class="k">زمان تحویل</span><span id="rDelivery"></span></div>
+      <div class="total" id="rTotal"></div>
+      <div class="note" id="rFilmNote" style="display:none">پیش‌نمایش برای تأیید؛ تحویل فایل نهایی پس از تسویه طبق توافق. زمان تحویل پایه ۳ روز است؛ زمان نهایی پس از بررسی مدت و بریف تأیید می‌شود. زمان تحویل از زمان رسیدن مواد و توافق بریف محاسبه می‌شود. برای فیلم‌های بلندتر از ۶۰ ثانیه، در بریف بپرسید — قیمت جداگانه اعلام می‌شود.</div>
+      <div class="note" id="rStarterNote" style="display:none">شرایط پیشنهاد شروع برای ۳ مشتری اول روی همین کارت اعمال می‌شود.</div>
+      <div class="note">ارسال درخواست و محاسبه قیمت رایگان است. پس از بررسی بریف، محدوده کار، قیمت نهایی، زمان تحویل و شرایط پرداخت پیش از شروع با شما هماهنگ می‌شود.</div>
+      <div class="note">خدمات خارج از محدوده توافق‌شده جداگانه قیمت‌گذاری می‌شوند.</div>
+    </div>
+
+    <div class="row">
+      <button class="btn-order" id="orderBtn">ارسال درخواست با ایمیل ✉️</button>
+    </div>
+  </div>
+
+  <p class="privacy">اطلاعات انتخاب‌شده برای محاسبه در مرورگر شما پردازش می‌شود و برای محاسبه به سرور ارسال نمی‌شود. با زدن دکمه ارسال درخواست، پیش‌نویس ایمیل شامل اطلاعات درخواست باز می‌شود و ارسال آن فقط با اقدام شما انجام خواهد شد.</p>
+
+  <footer>ابزار رایگان KouroshLabs — ساخته‌شده توسط کوروش فرجی<br>می‌خوای همچین ابزاری مخصوص کسب‌وکارت بسازم؟ به <a href="index.html#services">خدمات ما</a> سر بزن.</footer>
+</div>
+
+<script>
+/* قیمت‌ها و زمان تحویل دقیقاً از کارت‌های خدمات سایت (index.html) */
+var SERVICES = [
+  { id: "agent",    name: "ایجنت هوش مصنوعی",                 unit: 2500000, delivery: "۴ روز", kind: "fixed" },
+  { id: "chatgpt",  name: "طراحی دستیار ChatGPT",             unit: 2000000, delivery: "۳ روز", kind: "fixed" },
+  { id: "website",  name: "وب‌سایت تک‌صفحه‌ای",               unit: 900000,  delivery: "۳ روز", kind: "fixed", starter: true },
+  { id: "python",   name: "اسکریپت پایتون",                   unit: 750000,  delivery: "۲ روز", kind: "fixed", starter: true },
+  { id: "excel",    name: "پاکسازی اکسل / CSV",               unit: 1000000, delivery: "۲ روز", kind: "fixed" },
+  { id: "film",     name: "فیلم تبلیغاتی با هوش مصنوعی",      unit: 500000,  delivery: "۳ روز", kind: "film",  unitLabel: "به ازای هر ۱۰ ثانیه" },
+  { id: "translate",name: "ترجمه عمومی انگلیسی ↔ فارسی",      unit: 150000,  delivery: "۲ روز", kind: "translate", unitLabel: "به ازای هر ۳۰۰ کلمه", starter: true },
+  { id: "typing",   name: "تایپ و قالب‌بندی",                 unit: 150000,  delivery: "۲ روز", kind: "typing", unitLabel: "به ازای هر ۳ صفحه", starter: true }
+];
+
+function fa(n) { return Number(n).toLocaleString("fa-IR"); }
+
+var sel = document.getElementById("service");
+SERVICES.forEach(function (s) {
+  var o = document.createElement("option");
+  o.value = s.id;
+  o.textContent = s.name + " — " + fa(s.unit) + " تومان" + (s.unitLabel ? " " + s.unitLabel : "");
+  sel.appendChild(o);
+});
+
+var filmRange = document.getElementById("filmRange");
+var transUnits = 1, typeUnits = 1;
+
+function current() {
+  return SERVICES.find(function (s) { return s.id === sel.value; });
+}
+
+function quantityText(s) {
+  if (s.kind === "film") return fa(filmRange.value) + " ثانیه";
+  if (s.kind === "translate") return fa(transUnits) + " واحد (" + fa(transUnits * 300) + " کلمه)";
+  if (s.kind === "typing") return fa(typeUnits) + " واحد (" + fa(typeUnits * 3) + " صفحه)";
+  return null;
+}
+
+function totalPrice(s) {
+  if (s.kind === "film") return s.unit * (filmRange.value / 10);
+  if (s.kind === "translate") return s.unit * transUnits;
+  if (s.kind === "typing") return s.unit * typeUnits;
+  return s.unit;
+}
+
+function render() {
+  var s = current();
+  document.getElementById("unitHint").textContent =
+    s.kind === "fixed" ? "قیمت ثابت؛ " + fa(s.unit) + " تومان" : s.unitLabel + "؛ " + fa(s.unit) + " تومان";
+  document.getElementById("qtyFilm").classList.toggle("show", s.kind === "film");
+  document.getElementById("qtyTrans").classList.toggle("show", s.kind === "translate");
+  document.getElementById("qtyType").classList.toggle("show", s.kind === "typing");
+
+  document.getElementById("filmVal").textContent = fa(filmRange.value) + " ثانیه";
+  document.getElementById("transVal").textContent = fa(transUnits) + " واحد (" + fa(transUnits * 300) + " کلمه)";
+  document.getElementById("typeVal").textContent = fa(typeUnits) + " واحد (" + fa(typeUnits * 3) + " صفحه)";
+  document.getElementById("transMinus").disabled = transUnits <= 1;
+  document.getElementById("transPlus").disabled = transUnits >= 10;
+  document.getElementById("typeMinus").disabled = typeUnits <= 1;
+  document.getElementById("typePlus").disabled = typeUnits >= 10;
+
+  var q = quantityText(s);
+  document.getElementById("rQtyRow").style.display = q ? "" : "none";
+  document.getElementById("rQty").textContent = q || "";
+  document.getElementById("rFilmNote").style.display = s.kind === "film" ? "" : "none";
+  document.getElementById("rStarterNote").style.display = s.starter ? "" : "none";
+  document.getElementById("rService").textContent = s.name;
+  document.getElementById("rDelivery").textContent = s.kind === "film" ? s.delivery + " (زمان پایه)" : s.delivery;
+  document.getElementById("rTotal").textContent = fa(totalPrice(s)) + " تومان";
+}
+
+sel.addEventListener("change", render);
+filmRange.addEventListener("input", render);
+document.getElementById("transMinus").addEventListener("click", function () { if (transUnits > 1) transUnits--; render(); });
+document.getElementById("transPlus").addEventListener("click", function () { if (transUnits < 10) transUnits++; render(); });
+document.getElementById("typeMinus").addEventListener("click", function () { if (typeUnits > 1) typeUnits--; render(); });
+document.getElementById("typePlus").addEventListener("click", function () { if (typeUnits < 10) typeUnits++; render(); });
+
+document.getElementById("orderBtn").addEventListener("click", function () {
+  var s = current();
+  var q = quantityText(s);
+  var subject = "درخواست خدمت — " + s.name;
+  var lines = [
+    "سلام،",
+    "",
+    "می‌خواهم درباره خدمت زیر درخواست بدهم:",
+    "خدمت: " + s.name
+  ];
+  if (q) lines.push("مقدار: " + q);
+  lines.push("برآورد قیمت: " + fa(totalPrice(s)) + " تومان");
+  if (s.kind === "film") {
+    lines.push("زمان تحویل پایه: ۳ روز؛ زمان نهایی پس از بررسی مدت و بریف تأیید می‌شود. زمان تحویل از زمان رسیدن مواد و توافق بریف محاسبه می‌شود.");
+    lines.push("پیش‌نمایش برای تأیید؛ تحویل فایل نهایی پس از تسویه طبق توافق.");
+  } else {
+    lines.push("زمان تحویل: " + s.delivery);
+  }
+  lines.push("");
+  lines.push("شرح بریف من:");
+  lines.push("");
+  var body = lines.join("\n");
+  window.location.href = "mailto:kourosh.faraji.1390@gmail.com"
+    + "?subject=" + encodeURIComponent(subject)
+    + "&body=" + encodeURIComponent(body);
+});
+
+render();
+</script>
+</body>
+</html>
