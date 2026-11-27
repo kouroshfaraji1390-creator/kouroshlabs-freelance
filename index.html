@@ -410,7 +410,7 @@
     border-radius:10px;padding:8px 14px;font-weight:800;font-size:15px;
   }
   .cred-chip b{font-family:"Space Grotesk",sans-serif}
-  .about-details{display:none;margin-top:16px}
+  .about-details{display:none;margin-top:16px} .about-layout{display:flex;gap:18px;align-items:flex-start} .about-photo{flex:0 0 180px;width:180px;height:auto;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow)} .about-text{flex:1;min-width:0} @media(max-width:640px){.about-layout{flex-direction:column}.about-photo{width:160px}}
   .about-details.open{display:block}
   .cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
   @media (max-width:900px){ .cred-grid{grid-template-columns:1fr} }
@@ -707,7 +707,7 @@
     <div class="sec-head">
       <h2>درباره من و سوابق حرفه‌ای</h2>
     </div>
-    <div class="about">
+    <div class="about"><div class="about-layout"><img class="about-photo" src="kourosh-professional.jpg" alt="عکس حرفه‌ای کوروش فرجی" width="180" loading="lazy"><div class="about-text">
       <p>
         <b>کوروش فرجی</b> — پژوهشگر و توسعه‌دهنده‌ی هوش مصنوعی و برنامه‌نویس وب، و در کنارش مدرس زبان انگلیسی.
         کار اصلی، تست و بخش‌های انسانی هر پروژه را خودم انجام می‌دهم و خروجی نهایی همیشه بازبینی‌شده تحویل داده می‌شود.
@@ -717,7 +717,7 @@
         <span class="cred-chip"><b>TTC</b> — گواهی تدریس زبان</span>
         <span class="cred-chip"><b>ICDL</b> — مهارت‌های کامپیوتر</span>
       </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      </div></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
         <a class="btn btn-gold" href="https://civilica.com/p/680431/" target="_blank" rel="noopener">مشاهده‌ی رزومه در سیویلیکا ←</a>
         <button class="more-toggle" type="button" id="aboutToggle" aria-expanded="false" aria-controls="aboutDetails">مشاهده جزئیات سوابق و مدارک +</button>
       </div>
